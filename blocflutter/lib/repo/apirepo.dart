@@ -12,7 +12,10 @@ class Apirepo {
         Uri.parse(
             'https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/tt1375666'),
         headers: requestHeaders);
-
-    return response.body;
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      print("Error in Fetching Data");
+    }
   }
 }
