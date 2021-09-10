@@ -34,7 +34,8 @@ class Moviemodel {
     trailer =
     json['trailer'] != null ? new Trailer.fromJson(json['trailer']) : null;
     if (json['cast'] != null) {
-      List<Cast> cast =[];
+      // ignore: deprecated_member_use
+      cast = new List<Cast>();
       json['cast'].forEach((v) {
         cast.add(new Cast.fromJson(v));
       });
