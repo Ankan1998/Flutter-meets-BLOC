@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:blocflutter/repo/apirepo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 class HomeScreen extends StatefulWidget {
   final ar = new Apirepo();
@@ -12,7 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,9 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   onSurface: Colors.red,
                 ),
                 onPressed: () async {
-                  
                   var a = await widget.ar.getMovieData();
-                  print(a);
+
+                  log(a);
                 },
                 child: Text('TextButton'),
               )
