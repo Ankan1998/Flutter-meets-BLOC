@@ -1,9 +1,10 @@
+import 'package:blocflutter/repo/apirepo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class HomeScreen extends StatefulWidget {
+  final ar = new Apirepo();
   //const HomeScreen({ Key? key }) : super(key: key);
 
   @override
@@ -11,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,28 +21,34 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Padding(
           padding: EdgeInsets.fromLTRB(8, 20, 8, 0),
           child: Column(
-            
             children: [
-              SizedBox(
-                child: Center(
-                  child: Text(
-                    'API',
-                    style: TextStyle(
-                      color: CupertinoColors.white,
-                      fontFamily: GoogleFonts.aclonica().fontFamily,
-                      fontSize: 34.0,
-                      letterSpacing: 6,
-                      
-                    ),
+              Center(
+                child: Text(
+                  'API',
+                  style: TextStyle(
+                    color: CupertinoColors.white,
+                    fontFamily: GoogleFonts.aclonica().fontFamily,
+                    fontSize: 34.0,
+                    letterSpacing: 6,
                   ),
-                )
+                ),
               ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  primary: Colors.white,
+                  onSurface: Colors.red,
+                ),
+                onPressed: () async {
+                  
+                  var a = await widget.ar.getMovieData();
+                  print(a);
+                },
+                child: Text('TextButton'),
+              )
             ],
           ),
         ),
       ),
-        
-      
     );
   }
 }
