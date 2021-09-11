@@ -3,6 +3,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Apirepo {
+
+  Apirepo({this.search_val});
+  final String search_val;
+
+
   Future<dynamic> getMovieData() async {
     Map<String, String> requestHeaders = {
       'x-rapidapi-host':
@@ -30,7 +35,7 @@ class Apirepo {
 
     http.Response response = await http.get(
         Uri.parse(
-            'https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/joker'),
+            'https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/$search_val'),
         headers: requestHeaders);
     if (response.statusCode == 200) {
       return json.decode(response.body);
