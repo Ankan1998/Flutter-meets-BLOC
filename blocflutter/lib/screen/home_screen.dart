@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:blocflutter/model/movie_model.dart';
 import 'package:blocflutter/repo/apirepo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'dart:io';
 
 class HomeScreen extends StatefulWidget {
   final ar = new Apirepo();
+
   //const HomeScreen({ Key? key }) : super(key: key);
 
   @override
@@ -44,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onSurface: Colors.red,
                 ),
                 onPressed: () async {
-                  var a = await widget.ar.getMovieData();
+                  var a = await widget.ar.searchMovie();
 
                   log(a);
                 },
