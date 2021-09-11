@@ -90,7 +90,7 @@ class Names {
 
 class Companies {
   String title;
-  Null image;
+  String image;
   String id;
 
   Companies({this.title, this.image, this.id});
