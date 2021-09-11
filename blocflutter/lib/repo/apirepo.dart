@@ -33,7 +33,7 @@ class Apirepo {
             'https://imdb-internet-movie-database-unofficial.p.rapidapi.com/search/joker'),
         headers: requestHeaders);
     if (response.statusCode == 200) {
-      return response.body;
+      return json.decode(response.body);
     } else {
       print("Error in Fetching Data");
     }
