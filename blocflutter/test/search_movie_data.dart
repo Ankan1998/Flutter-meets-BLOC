@@ -35,7 +35,7 @@ class SearchMovieMockData{
           },
           {
               "title": "Joker",
-              "image": "https://m.media-amazon.com/images/M/MV5BNjExZGRlY2YtYjQ5NS00ZGRkLWJiYWUtOTBjNGIwNjY4ZWJiXkEyXkFqcGdeQXVyMjQwMDg0Ng@@.jpg",
+              "image": null,
               "id": "co0208239"
           }
       ]
