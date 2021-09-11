@@ -11,7 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
 class HomeScreen extends StatefulWidget {
-  final ar = new Apirepo();
+
   Searchmovie searchmoviemodel;
   bool flag = false;
   //const HomeScreen({ Key? key }) : super(key: key);
@@ -21,47 +21,85 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
+  final myController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CupertinoColors.inactiveGray,
+      backgroundColor: CupertinoColors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(8, 20, 8, 0),
+          padding: EdgeInsets.fromLTRB(8, 12, 8, 0),
           child: Column(
             children: [
               Center(
                 child: Text(
                   'API',
                   style: TextStyle(
-                    color: CupertinoColors.white,
+                    color: Colors.grey[600],
                     fontFamily: GoogleFonts.aclonica().fontFamily,
                     fontSize: 34.0,
                     letterSpacing: 6,
                   ),
                 ),
               ),
-              OutlinedButton(
+              SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Container(
+                      width:MediaQuery.of(context).size.width * 0.75,
+                      child: TextField(
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter Movie Name'
+                        ),
+                        controller: myController,
+                      ),
+                    ),
+                    SizedBox(width:10),
+                    IconButton(
 
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.black54,
-                  primary: Colors.white,
-                  onSurface: Colors.red,
+                      icon: Icon(
+                        Icons.search,
+                      ),
+                      iconSize: 40,
+                      color: Colors.green,
+                      onPressed: () async {
+                        final ar = new Apirepo(search_val: myController.text);
+                        var a = await ar.searchMovie();
+                        Searchmovie _sm = Searchmovie.fromJson(a);
+                        print(a);
+                        setState(() {
+                          widget.flag = true;
+                          widget.searchmoviemodel = _sm;
+                        });
+
+                      },
+                    ),
+
+                  ],
                 ),
-                onPressed: () async {
-                  var a = await widget.ar.searchMovie();
-                  Searchmovie _sm = Searchmovie.fromJson(a);
-                  print(a);
-                  setState(() {
-                    widget.flag = true;
-                    widget.searchmoviemodel = _sm;
-                  });
-
-                },
-                child: Text('Search'),
               ),
+              // OutlinedButton(
+              //   style: TextButton.styleFrom(
+              //     backgroundColor: Colors.black54,
+              //     primary: Colors.white,
+              //     onSurface: Colors.red,
+              //   ),
+              //   onPressed: () async {
+              //     var a = await widget.ar.searchMovie();
+              //     Searchmovie _sm = Searchmovie.fromJson(a);
+              //     print(a);
+              //     setState(() {
+              //       widget.flag = true;
+              //       widget.searchmoviemodel = _sm;
+              //     });
+              //
+              //   },
+              //   child: Text('Search'),
+              // ),
               Expanded(
                 child: widget.flag
                     ? MovieSlider(searchmovie: widget.searchmoviemodel)
