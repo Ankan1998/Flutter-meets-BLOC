@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:blocflutter/model/apimodel.dart';
+import 'package:blocflutter/model/movie_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'movie_data.dart';
