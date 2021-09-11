@@ -62,9 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 child: Text('Search'),
               ),
-              Container(
-                height: 200,
-                width:200,
+              Expanded(
                 child: widget.flag
                     ? MovieSlider(searchmovie: widget.searchmoviemodel)
                     : Container(height:200,width:200)
