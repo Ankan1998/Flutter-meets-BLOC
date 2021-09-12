@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:blocflutter/model/movie_model.dart';
 import 'package:blocflutter/model/search_movie_model.dart';
-import 'package:blocflutter/repo/apirepo.dart';
+import 'package:blocflutter/repo/search_movie_api.dart';
 import 'package:blocflutter/widgets/movie_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         if (!currentFocus.hasPrimaryFocus) {
                           currentFocus.unfocus();
                         }
-                        final ar = new Apirepo(search_val: myController.text);
+                        final ar = new SearchApiRepo(search_val: myController.text);
                         var a = await ar.searchMovie();
                         Searchmovie _sm = Searchmovie.fromJson(a);
                         print(a);
@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-
+              SizedBox(height:20),
               Flexible(
                 child: widget.flag
                     ? MovieSlider(searchmovie: widget.searchmoviemodel)
