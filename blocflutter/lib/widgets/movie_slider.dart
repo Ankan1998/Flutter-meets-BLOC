@@ -1,4 +1,6 @@
+import 'package:blocflutter/model/movie_model.dart';
 import 'package:blocflutter/model/search_movie_model.dart';
+import 'package:blocflutter/repo/movie_details_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -12,6 +14,7 @@ class MovieSlider extends StatefulWidget {
 }
 
 class _MovieSliderState extends State<MovieSlider> {
+  Moviemodel moviemodel;
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
@@ -28,8 +31,11 @@ class _MovieSliderState extends State<MovieSlider> {
             widget.searchmovie.titles[index].image,
             fit: BoxFit.fill,
           ),
-          onTap: (){
-            print(widget.searchmovie.titles[index].title);
+          onTap: () async {
+            final mr = new MovieApiRepo(movie_id: widget.searchmovie.titles[index].id);
+            var m = await mr.getMovieData();
+            Moviemodel moviemodel = Moviemodel.fromJson(m);
+            print(moviemodel.plot);
           },
         );
       },
