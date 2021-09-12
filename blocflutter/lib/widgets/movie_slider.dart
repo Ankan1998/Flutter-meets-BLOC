@@ -15,7 +15,6 @@ class _MovieSliderState extends State<MovieSlider> {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
-
       options: CarouselOptions(
         initialPage: 0,
         enlargeCenterPage: true,
@@ -24,19 +23,15 @@ class _MovieSliderState extends State<MovieSlider> {
       ),
       itemCount: widget.searchmovie.titles.length,
       itemBuilder: (context, index,pindex) {
-        // print(widget.searchmovie.titles[index].title);
-        // return FittedBox(
-        //   fit: BoxFit.fill,
-        //   child: Image.network(
-        //     widget.searchmovie.titles[index].image,
-        //
-        //   )
-        return Image.network(
-          widget.searchmovie.titles[index].image,
-          fit: BoxFit.fill,
-
+        return InkWell(
+          child: Image.network(
+            widget.searchmovie.titles[index].image,
+            fit: BoxFit.fill,
+          ),
+          onTap: (){
+            print(widget.searchmovie.titles[index].title);
+          },
         );
-
       },
     );
   }
