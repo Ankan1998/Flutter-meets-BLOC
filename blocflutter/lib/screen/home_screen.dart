@@ -67,6 +67,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       iconSize: 40,
                       color: Colors.green,
                       onPressed: () async {
+                        FocusScopeNode currentFocus = FocusScope.of(context);
+
+                        if (!currentFocus.hasPrimaryFocus) {
+                          currentFocus.unfocus();
+                        }
                         final ar = new Apirepo(search_val: myController.text);
                         var a = await ar.searchMovie();
                         Searchmovie _sm = Searchmovie.fromJson(a);
@@ -82,25 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              // OutlinedButton(
-              //   style: TextButton.styleFrom(
-              //     backgroundColor: Colors.black54,
-              //     primary: Colors.white,
-              //     onSurface: Colors.red,
-              //   ),
-              //   onPressed: () async {
-              //     var a = await widget.ar.searchMovie();
-              //     Searchmovie _sm = Searchmovie.fromJson(a);
-              //     print(a);
-              //     setState(() {
-              //       widget.flag = true;
-              //       widget.searchmoviemodel = _sm;
-              //     });
-              //
-              //   },
-              //   child: Text('Search'),
-              // ),
-              Expanded(
+
+              Flexible(
                 child: widget.flag
                     ? MovieSlider(searchmovie: widget.searchmoviemodel)
                     : Container(height:200,width:200)
