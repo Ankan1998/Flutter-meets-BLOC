@@ -1,6 +1,7 @@
 import 'package:blocflutter/model/movie_model.dart';
 import 'package:blocflutter/model/search_movie_model.dart';
 import 'package:blocflutter/repo/movie_details_api.dart';
+import 'package:blocflutter/screen/movie_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -36,6 +37,12 @@ class _MovieSliderState extends State<MovieSlider> {
             var m = await mr.getMovieData();
             Moviemodel moviemodel = Moviemodel.fromJson(m);
             print(moviemodel.plot);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context){
+                return MovieDetails(movie: moviemodel);
+              })
+            );
           },
         );
       },
