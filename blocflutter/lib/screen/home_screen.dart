@@ -72,8 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         if (!currentFocus.hasPrimaryFocus) {
                           currentFocus.unfocus();
                         }
-                        final ar = new SearchApiRepo(search_val: myController.text);
-                        var a = await ar.searchMovie();
+                        final ar = new SearchApiRepo();
+                        var a = await ar.searchMovie(myController.text);
                         SearchModel _sm = SearchModel.fromJson(a);
                         print(a);
                         setState(() {

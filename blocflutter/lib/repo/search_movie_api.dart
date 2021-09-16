@@ -4,10 +4,7 @@ import 'package:http/http.dart' as http;
 
 class SearchApiRepo {
 
-  SearchApiRepo({this.search_val});
-  final String search_val;
-
-  Future<dynamic> searchMovie() async {
+  Future<dynamic> searchMovie(String search_val) async {
     Map<String, String> requestHeaders = {
       'x-rapidapi-host':
       'imdb-internet-movie-database-unofficial.p.rapidapi.com',
