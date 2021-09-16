@@ -1,11 +1,11 @@
-class Searchmovie {
+class SearchModel {
   List<Titles> titles;
   List<Names> names;
   List<Companies> companies;
 
-  Searchmovie({this.titles, this.names, this.companies});
+  SearchModel({this.titles, this.names, this.companies});
 
-  Searchmovie.fromJson(Map<String, dynamic> json) {
+  SearchModel.fromJson(Map<String, dynamic> json) {
     if (json['titles'] != null) {
       // ignore: deprecated_member_use
       titles = new List<Titles>();

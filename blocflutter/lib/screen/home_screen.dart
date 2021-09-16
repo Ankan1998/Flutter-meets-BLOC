@@ -12,7 +12,7 @@ import 'dart:io';
 
 class HomeScreen extends StatefulWidget {
 
-  Searchmovie searchmoviemodel;
+  SearchModel searchmoviemodel;
   bool flag = false;
   //const HomeScreen({ Key? key }) : super(key: key);
 
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         }
                         final ar = new SearchApiRepo(search_val: myController.text);
                         var a = await ar.searchMovie();
-                        Searchmovie _sm = Searchmovie.fromJson(a);
+                        SearchModel _sm = SearchModel.fromJson(a);
                         print(a);
                         setState(() {
                           widget.flag = true;

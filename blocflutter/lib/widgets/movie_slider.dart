@@ -8,7 +8,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 class MovieSlider extends StatefulWidget {
   const MovieSlider({Key key, this.searchmovie}) : super(key: key);
-  final Searchmovie searchmovie;
+  final SearchModel searchmovie;
 
   @override
   _MovieSliderState createState() => _MovieSliderState();
