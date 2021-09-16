@@ -7,10 +7,11 @@ class SearchEvent extends Equatable {
 }
 
 class SearchMovie extends SearchEvent {
-  final _search;
+  final searchx;
 
-  SearchMovie(this._search);
-  List<Object> get props => [_search];
+  SearchMovie(this.searchx);
+  List<Object> get props => [searchx];
+
 }
 
 class ResetSearch extends SearchEvent {}

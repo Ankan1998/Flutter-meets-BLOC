@@ -14,8 +14,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     if (event is SearchMovie) {
       yield SearchLoading();
       try {
-        var search_ = await searchrepo.searchMovie();
-        SearchModel search_model = SearchModel.fromJson(search_);
+        var search_json = await searchrepo.searchMovie(event.searchx);
+        SearchModel search_model = SearchModel.fromJson(search_json);
         yield SearchLoaded(search_model);
       } catch (e) {
         yield SearchError();
