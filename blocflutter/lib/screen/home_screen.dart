@@ -1,11 +1,15 @@
 import 'dart:developer';
 
+import 'package:blocflutter/bloc/search_bloc.dart';
+import 'package:blocflutter/bloc/search_events.dart';
+import 'package:blocflutter/bloc/search_state.dart';
 import 'package:blocflutter/model/movie_model.dart';
 import 'package:blocflutter/model/search_movie_model.dart';
 import 'package:blocflutter/repo/search_movie_api.dart';
 import 'package:blocflutter/widgets/movie_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
@@ -59,30 +63,30 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     SizedBox(width:10),
-                    IconButton(
+                    BlocBuilder<SearchBloc, SearchState>(
+                      builder: (BuildContext context, SearchState state) {
+                      if (state is SearchLoaded) {
+                        IconButton(
+                          icon: Icon(
+                            Icons.search,
+                          ),
+                          iconSize: 40,
+                          color: Colors.green,
+                          onPressed: () async {
+                            FocusScopeNode currentFocus =
+                                FocusScope.of(context);
 
-                      icon: Icon(
-                        Icons.search,
-                      ),
-                      iconSize: 40,
-                      color: Colors.green,
-                      onPressed: () async {
-                        FocusScopeNode currentFocus = FocusScope.of(context);
-
-                        if (!currentFocus.hasPrimaryFocus) {
-                          currentFocus.unfocus();
-                        }
-                        final ar = new SearchApiRepo();
-                        var a = await ar.searchMovie(myController.text);
-                        SearchModel _sm = SearchModel.fromJson(a);
-                        print(a);
-                        setState(() {
-                          widget.flag = true;
-                          widget.searchmoviemodel = _sm;
-                        });
-
-                      },
-                    ),
+                            if (!currentFocus.hasPrimaryFocus) {
+                              currentFocus.unfocus();
+                            }
+                            context
+                                .read<SearchBloc>()
+                                .add(SearchMovie(myController.text));
+                          },
+                        );
+                      }
+                      return CircularProgressIndicator();
+                    })
 
                   ],
                 ),
