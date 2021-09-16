@@ -6,7 +6,7 @@ import 'search_movie_data.dart';
 void main(){
 
   test('Search movie Model testing from json', () {
-    Searchmovie searchmoviemodel = Searchmovie.fromJson(
+    SearchModel searchmoviemodel = SearchModel.fromJson(
         json.decode(SearchMovieMockData.GET_SEARCH_MOVIE_RESPONSE)
     );
     expect(searchmoviemodel.titles[0].id, 'tt7286456');
@@ -15,7 +15,7 @@ void main(){
   });
 
   test('Search Movie Model testing to json', () {
-    Searchmovie searchmoviemodel = Searchmovie.fromJson(
+    SearchModel searchmoviemodel = SearchModel.fromJson(
         json.decode(SearchMovieMockData.GET_SEARCH_MOVIE_RESPONSE)
     );
     searchmoviemodel.toJson();
