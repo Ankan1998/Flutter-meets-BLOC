@@ -7,6 +7,8 @@ import 'package:blocflutter/model/movie_model.dart';
 import 'package:blocflutter/model/search_movie_model.dart';
 import 'package:blocflutter/repo/search_movie_api.dart';
 import 'package:blocflutter/widgets/movie_slider.dart';
+import 'package:carousel_slider/carousel_options.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,11 +17,9 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
 class HomeScreen extends StatefulWidget {
-
+  //const HomeScreen({ Key? key }) : super(key: key);
   SearchModel searchmoviemodel;
   bool flag = false;
-  //const HomeScreen({ Key? key }) : super(key: key);
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -27,80 +27,106 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final myController = TextEditingController();
 
+
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CupertinoColors.white,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(8, 12, 8, 0),
-          child: Column(
-            children: [
-              Center(
-                child: Text(
-                  'API',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontFamily: GoogleFonts.aclonica().fontFamily,
-                    fontSize: 34.0,
-                    letterSpacing: 6,
-                  ),
-                ),
-              ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Container(
-                      width:MediaQuery.of(context).size.width * 0.75,
-                      child: TextField(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter Movie Name'
-                        ),
-                        controller: myController,
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: CupertinoColors.white,
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(8, 12, 8, 0),
+              child: Column(
+                children: [
+                  Center(
+                    child: Text(
+                      'API',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontFamily: GoogleFonts.aclonica().fontFamily,
+                        fontSize: 34.0,
+                        letterSpacing: 6,
                       ),
                     ),
-                    SizedBox(width:10),
-                    BlocBuilder<SearchBloc, SearchState>(
-                      builder: (BuildContext context, SearchState state) {
-                      if (state is SearchLoaded) {
-                        IconButton(
-                          icon: Icon(
-                            Icons.search,
+                  ),
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.75,
+                          child: TextField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Enter Movie Name'),
+                            controller: myController,
                           ),
-                          iconSize: 40,
-                          color: Colors.green,
-                          onPressed: () async {
-                            FocusScopeNode currentFocus =
-                                FocusScope.of(context);
-
-                            if (!currentFocus.hasPrimaryFocus) {
-                              currentFocus.unfocus();
-                            }
-                            context
-                                .read<SearchBloc>()
-                                .add(SearchMovie(myController.text));
-                          },
-                        );
-                      }
-                      return CircularProgressIndicator();
-                    })
-
-                  ],
-                ),
+                        ),
+                        SizedBox(width: 10),
+                         IconButton(
+                            icon: Icon(
+                              Icons.search,
+                            ),
+                            iconSize: 40,
+                            color: Colors.green,
+                            onPressed: () async {
+                              FocusScopeNode currentFocus =
+                                  FocusScope.of(context);
+    
+                              if (!currentFocus.hasPrimaryFocus) {
+                                currentFocus.unfocus();
+                              }
+                              context
+                                  .read<SearchBloc>()
+                                  .add(SearchMovie(myController.text));
+                              if (state is SearchLoading) {
+                                CircularProgressIndicator();
+                              }
+                              if (state is SearchLoaded) {
+                                widget.flag = true; 
+                                widget.searchmoviemodel = state.searchloaded;
+                                print(widget.searchmoviemodel.titles[0].title);
+                              }
+                            },
+                          )
+                        
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  // Flexible(
+                  //     child: flag
+                  //         ? MovieSlider(searchmovie: searchmoviemodel)
+                  //         : Container(height: 200, width: 200))
+                  Flexible(
+                    child: widget.flag
+                    ? CarouselSlider.builder(
+                    options: CarouselOptions(
+                        initialPage: 0,
+                        enlargeCenterPage: true,
+                        autoPlay: true,
+                        height: MediaQuery.of(context).size.height * 0.7),
+                    itemCount: widget.searchmoviemodel.titles.length,
+                    itemBuilder: (context, index, pindex) {
+                      return Image.network(
+                        widget.searchmoviemodel.titles[index].image,
+                        fit: BoxFit.fill,
+                      );
+                    },
+                  )
+                  :
+                  Container()
+    
+                  )
+                ],
               ),
-              SizedBox(height:20),
-              Flexible(
-                child: widget.flag
-                    ? MovieSlider(searchmovie: widget.searchmoviemodel)
-                    : Container(height:200,width:200)
-              )
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
