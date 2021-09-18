@@ -14,11 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class HomeScreen extends StatefulWidget {
   //const HomeScreen({ Key? key }) : super(key: key);
-  SearchModel searchmoviemodel;
-  bool flag = false;
   TextEditingController myController = TextEditingController();
 
   @override
@@ -26,11 +23,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // final myController = TextEditingController();
+  // final myController = TextEditingController()
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchBloc, SearchState>(
+    return BlocBuilder<SearchBloc, SearchState>(   
       builder: (context, state) {
         return Scaffold(
           backgroundColor: CupertinoColors.white,
@@ -78,50 +75,40 @@ class _HomeScreenState extends State<HomeScreen> {
                             if (!currentFocus.hasPrimaryFocus) {
                               currentFocus.unfocus();
                             }
-                            BlocProvider.of<SearchBloc>(context)
-                                .add(SearchMovie(widget.myController.text));
-                            if (state is SearchLoading) {
-                              CircularProgressIndicator();
-                            }
-                            if (state is SearchLoaded) {
-                              widget.flag = true;
-                              widget.searchmoviemodel = state.searchloaded;
-                              widget.myController.clear();
-                              print(widget.searchmoviemodel.titles[0].title);
-                            }
+                            
+                            BlocProvider.of<SearchBloc>(context).add(SearchMovie(widget.myController.text));
                           },
                         )
                       ],
                     ),
                   ),
-                  // OutlinedButton(
-                  //   onPressed: (){
-                  //     myController.clear();
-                  //   },
-                  //   child: Text('Clear')),
                   SizedBox(height: 20),
                   // Flexible(
                   //     child: flag
                   //         ? MovieSlider(searchmovie: searchmoviemodel)
                   //         : Container(height: 200, width: 200))
-                  Flexible(
-                      child: widget.flag
-                          ? CarouselSlider.builder(
-                              options: CarouselOptions(
-                                  initialPage: 0,
-                                  enlargeCenterPage: true,
-                                  autoPlay: true,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.7),
-                              itemCount: widget.searchmoviemodel.titles.length,
-                              itemBuilder: (context, index, pindex) {
-                                return Image.network(
-                                  widget.searchmoviemodel.titles[index].image,
-                                  fit: BoxFit.fill,
-                                );
-                              },
-                            )
-                          : Container(child:Text('Nothing to show')))
+                  Container(
+                    child: state is SearchLoading 
+                    ? Center(child: CircularProgressIndicator())
+                    :Flexible(
+                        child: state is SearchLoaded
+                            ? CarouselSlider.builder(
+                                options: CarouselOptions(
+                                    initialPage: 0,
+                                    enlargeCenterPage: true,
+                                    autoPlay: true,
+                                    height:
+                                        MediaQuery.of(context).size.height * 0.7),
+                                itemCount: state.searchloaded.titles.length,
+                                itemBuilder: (context, index, pindex) {
+                                  return Image.network(
+                                    state.searchloaded.titles[index].image,
+                                    fit: BoxFit.fill,
+                                  );
+                                },
+                              )
+                            : Container(child: Text('Nothing to show'))),
+                  )
                 ],
               ),
             ),
