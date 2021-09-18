@@ -75,7 +75,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             if (!currentFocus.hasPrimaryFocus) {
                               currentFocus.unfocus();
                             }
-                            
                             BlocProvider.of<SearchBloc>(context).add(SearchMovie(widget.myController.text));
                           },
                         )
@@ -83,31 +82,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  // Flexible(
-                  //     child: flag
-                  //         ? MovieSlider(searchmovie: searchmoviemodel)
-                  //         : Container(height: 200, width: 200))
                   Container(
-                    child: state is SearchLoading 
+                    child: state is SearchLoading
                     ? Center(child: CircularProgressIndicator())
                     :Flexible(
                         child: state is SearchLoaded
-                            ? CarouselSlider.builder(
-                                options: CarouselOptions(
-                                    initialPage: 0,
-                                    enlargeCenterPage: true,
-                                    autoPlay: true,
-                                    height:
-                                        MediaQuery.of(context).size.height * 0.7),
-                                itemCount: state.searchloaded.titles.length,
-                                itemBuilder: (context, index, pindex) {
-                                  return Image.network(
-                                    state.searchloaded.titles[index].image,
-                                    fit: BoxFit.fill,
-                                  );
-                                },
-                              )
-                            : Container(child: Text('Nothing to show'))),
+                            ? MovieSlider(searchmovie: state.searchloaded)
+                            : Container(height: 200, width: 200)),
                   )
                 ],
               ),
