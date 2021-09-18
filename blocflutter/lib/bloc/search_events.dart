@@ -10,7 +10,6 @@ class SearchMovie extends SearchEvent {
   final searchx;
 
   SearchMovie(this.searchx);
-  List<Object> get props => [searchx];
 
 }
 

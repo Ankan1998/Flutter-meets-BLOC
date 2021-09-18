@@ -1,3 +1,4 @@
+import 'package:blocflutter/model/search_movie_model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class SearchState extends Equatable {
@@ -11,11 +12,10 @@ class SearchInitState extends SearchState {}
 class SearchLoading extends SearchState {}
 
 class SearchLoaded extends SearchState {
-  final _searchloaded;
+  final searchloaded;
 
-  SearchLoaded(this._searchloaded);
-  List<Object> get props => [_searchloaded];
-
+  SearchLoaded(this.searchloaded);
+  
 }
 
 class SearchError extends SearchState {}
