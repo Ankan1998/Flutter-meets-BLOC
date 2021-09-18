@@ -13,22 +13,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
+
 
 class HomeScreen extends StatefulWidget {
   //const HomeScreen({ Key? key }) : super(key: key);
   SearchModel searchmoviemodel;
   bool flag = false;
+  TextEditingController myController = TextEditingController();
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final myController = TextEditingController();
+  // final myController = TextEditingController();
 
-
-  
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
@@ -62,65 +61,67 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: 'Enter Movie Name'),
-                            controller: myController,
+                            controller: widget.myController,
                           ),
                         ),
                         SizedBox(width: 10),
-                         IconButton(
-                            icon: Icon(
-                              Icons.search,
-                            ),
-                            iconSize: 40,
-                            color: Colors.green,
-                            onPressed: () async {
-                              FocusScopeNode currentFocus =
-                                  FocusScope.of(context);
-    
-                              if (!currentFocus.hasPrimaryFocus) {
-                                currentFocus.unfocus();
-                              }
-                              context
-                                  .read<SearchBloc>()
-                                  .add(SearchMovie(myController.text));
-                              if (state is SearchLoading) {
-                                CircularProgressIndicator();
-                              }
-                              if (state is SearchLoaded) {
-                                widget.flag = true; 
-                                widget.searchmoviemodel = state.searchloaded;
-                                print(widget.searchmoviemodel.titles[0].title);
-                              }
-                            },
-                          )
-                        
+                        IconButton(
+                          icon: Icon(
+                            Icons.search,
+                          ),
+                          iconSize: 40,
+                          color: Colors.green,
+                          onPressed: () async {
+                            FocusScopeNode currentFocus =
+                                FocusScope.of(context);
+
+                            if (!currentFocus.hasPrimaryFocus) {
+                              currentFocus.unfocus();
+                            }
+                            BlocProvider.of<SearchBloc>(context)
+                                .add(SearchMovie(widget.myController.text));
+                            if (state is SearchLoading) {
+                              CircularProgressIndicator();
+                            }
+                            if (state is SearchLoaded) {
+                              widget.flag = true;
+                              widget.searchmoviemodel = state.searchloaded;
+                              widget.myController.clear();
+                              print(widget.searchmoviemodel.titles[0].title);
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),
+                  // OutlinedButton(
+                  //   onPressed: (){
+                  //     myController.clear();
+                  //   },
+                  //   child: Text('Clear')),
                   SizedBox(height: 20),
                   // Flexible(
                   //     child: flag
                   //         ? MovieSlider(searchmovie: searchmoviemodel)
                   //         : Container(height: 200, width: 200))
                   Flexible(
-                    child: widget.flag
-                    ? CarouselSlider.builder(
-                    options: CarouselOptions(
-                        initialPage: 0,
-                        enlargeCenterPage: true,
-                        autoPlay: true,
-                        height: MediaQuery.of(context).size.height * 0.7),
-                    itemCount: widget.searchmoviemodel.titles.length,
-                    itemBuilder: (context, index, pindex) {
-                      return Image.network(
-                        widget.searchmoviemodel.titles[index].image,
-                        fit: BoxFit.fill,
-                      );
-                    },
-                  )
-                  :
-                  Container()
-    
-                  )
+                      child: widget.flag
+                          ? CarouselSlider.builder(
+                              options: CarouselOptions(
+                                  initialPage: 0,
+                                  enlargeCenterPage: true,
+                                  autoPlay: true,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.7),
+                              itemCount: widget.searchmoviemodel.titles.length,
+                              itemBuilder: (context, index, pindex) {
+                                return Image.network(
+                                  widget.searchmoviemodel.titles[index].image,
+                                  fit: BoxFit.fill,
+                                );
+                              },
+                            )
+                          : Container(child:Text('Nothing to show')))
                 ],
               ),
             ),
