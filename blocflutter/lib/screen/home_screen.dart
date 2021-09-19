@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Center(
                       child: Text(
-                        'API',
+                        'Moviez Nerd',
                         style: TextStyle(
                           color: Colors.grey[600],
                           fontFamily: GoogleFonts.aclonica().fontFamily,
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(width: 10),
                           IconButton(
                             icon: Icon(
-                              Icons.search,
+                              Icons.arrow_forward
                             ),
                             iconSize: 40,
                             color: Colors.green,
@@ -81,7 +81,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(height: 20),
                     Container(
                       child: state is SearchLoading
-                          ? Center(child: CircularProgressIndicator())
+                          ? Column(
+                            children: [
+                              Center(
+                                child: CircularProgressIndicator()
+                              ),
+                              SizedBox(height:30),
+                              Center(
+                                child: Text(
+                                  "Loading Please Wait...."
+                                )
+                              )
+                            ],
+                          )
                           : Flexible(
                               child: state is SearchLoaded
                                   ? MovieSlider(searchmovie: state.searchloaded)
