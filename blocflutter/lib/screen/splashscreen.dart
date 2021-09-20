@@ -1,4 +1,5 @@
 import 'package:blocflutter/screen/home_screen.dart';
+import 'package:blocflutter/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,7 +17,7 @@ class _SplashScreenxState extends State<SplashScreenx> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 5),
+        Duration(seconds: 3),
         () => Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -25,7 +26,7 @@ class _SplashScreenxState extends State<SplashScreenx> {
   }
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CupertinoColors.systemGrey6,
+      backgroundColor: Theme.of(context).primaryColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -41,12 +42,7 @@ class _SplashScreenxState extends State<SplashScreenx> {
           SizedBox(height:50.0),
           Text(
             'API',
-            style: TextStyle(
-              fontFamily: GoogleFonts.lato().fontFamily,
-              fontSize: 34,
-              color: Colors.teal[800],
-              letterSpacing: 4,
-            ),
+            style: MyTheme.kAppTitle
           )
         ],
       )
