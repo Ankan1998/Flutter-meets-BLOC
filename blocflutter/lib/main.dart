@@ -1,5 +1,6 @@
 import 'package:blocflutter/screen/home_screen.dart';
 import 'package:blocflutter/screen/splashscreen.dart';
+import 'package:blocflutter/themes.dart';
 import 'package:flutter/material.dart';
 
 
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: MyTheme.kPrimaryColor,
+        
       ),
       home: SplashScreenx(),
     );
