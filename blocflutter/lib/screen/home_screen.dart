@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             child: Row(
                               children: [
-                                SizedBox(width: 8),
+                                SizedBox(width: 10),
                                 Expanded(
                                   child: TextField(
                                     decoration: InputDecoration.collapsed(
@@ -81,14 +81,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(width: 10),              
                           IconButton(
                             icon: Icon(
-                              Icons.arrow_forward
+                              Icons.search_outlined
                             ),
                             iconSize: 40,
-                            color: Colors.green,
+                            color: Color(0xffD2C5ED),
                             onPressed: () async {
                               FocusScopeNode currentFocus =
                                   FocusScope.of(context);
-          
+                        
                               if (!currentFocus.hasPrimaryFocus) {
                                 currentFocus.unfocus();
                               }
@@ -100,23 +100,36 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    state is SearchLoading
-                          ? Column(
-                            children: [
-                              Center(
-                                child: CircularProgressIndicator()
-                              ),
-                              SizedBox(height:30),
-                              Center(
-                                child: Text(
-                                  "Loading Please Wait...."
-                                )
+                    
+                    Expanded(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.95,
+                        padding: EdgeInsets.only(top: 18, left:10,right:10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: state is SearchLoading
+                              ? Column(
+                                children: [
+                                  Center(
+                                    child: CircularProgressIndicator()
+                                  ),
+                                  SizedBox(height:30),
+                                  Center(
+                                    child: Text(
+                                      "Loading Please Wait...."
+                                    )
+                                  )
+                                ],
                               )
-                            ],
-                          )
-                          : state is SearchLoaded
-                                  ? MovieGrid(searchmovie: state.searchloaded)
-                                  : Container(height: 200, width: 200),
+                              : state is SearchLoaded
+                                      ? MovieGrid(searchmovie: state.searchloaded)
+                                      : Container(height: 200, width: 200),
+                      ),
+                    ),
+                    SizedBox(height:25)
                     
                   ],
                 ),
