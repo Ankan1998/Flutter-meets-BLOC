@@ -1,6 +1,8 @@
 import 'package:blocflutter/bloc/search_bloc.dart';
 import 'package:blocflutter/bloc/search_events.dart';
 import 'package:blocflutter/bloc/search_state.dart';
+import 'package:blocflutter/themes.dart';
+import 'package:blocflutter/widgets/movie_grid.dart';
 import 'package:blocflutter/widgets/movie_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,24 +27,21 @@ class _HomeScreenState extends State<HomeScreen> {
       create: (context) => SearchBloc(SearchApiRepo()),
       child: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
-          return Scaffold(
-            backgroundColor: CupertinoColors.white,
-            body: SafeArea(
-              child: Padding(
+          return SafeArea(
+            child: Scaffold(
+              backgroundColor: Theme.of(context).primaryColor,
+              appBar: AppBar(
+                backgroundColor: MyTheme.kPrimaryColorHeader,
+                centerTitle: true,
+                title: Text(
+                  'MOVIEZ NERD',
+                  style: MyTheme.kAppTitle
+                )
+              ),
+              body: Padding(
                 padding: EdgeInsets.fromLTRB(8, 12, 8, 0),
                 child: Column(
                   children: [
-                    Center(
-                      child: Text(
-                        'Moviez Nerd',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontFamily: GoogleFonts.aclonica().fontFamily,
-                          fontSize: 34.0,
-                          letterSpacing: 6,
-                        ),
-                      ),
-                    ),
                     SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -50,24 +49,46 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width * 0.75,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: 'Enter Movie Name'),
-                              controller: widget.myController,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(35.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    offset: Offset(0, 3), blurRadius: 5, color: Colors.grey)
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                SizedBox(width: 10),
+                                Expanded(
+                                  child: TextField(
+                                    decoration: InputDecoration.collapsed(
+                                        hintText: "Enter Movie Name...",
+                                        hintStyle: TextStyle(
+                                          color: Colors.grey[500],
+                                          fontFamily: GoogleFonts.satisfy().fontFamily,
+                                          letterSpacing: 2.0,
+                                          fontSize: 18.0,
+                                        ),
+                                        border: InputBorder.none),
+                                    controller: widget.myController,
+                                  ),
+                                ),
+                                SizedBox(width: 0, height: 50)
+                              ],
                             ),
                           ),
-                          SizedBox(width: 10),
+                          SizedBox(width: 10),              
                           IconButton(
                             icon: Icon(
-                              Icons.arrow_forward
+                              Icons.search_outlined
                             ),
                             iconSize: 40,
-                            color: Colors.green,
+                            color: Color(0xffD2C5ED),
                             onPressed: () async {
                               FocusScopeNode currentFocus =
                                   FocusScope.of(context);
-
+                        
                               if (!currentFocus.hasPrimaryFocus) {
                                 currentFocus.unfocus();
                               }
@@ -79,26 +100,37 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Container(
-                      child: state is SearchLoading
-                          ? Column(
-                            children: [
-                              Center(
-                                child: CircularProgressIndicator()
-                              ),
-                              SizedBox(height:30),
-                              Center(
-                                child: Text(
-                                  "Loading Please Wait...."
-                                )
+                    
+                    Expanded(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.95,
+                        padding: EdgeInsets.only(top: 18, left:10,right:10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: state is SearchLoading
+                              ? Column(
+                                children: [
+                                  Center(
+                                    child: CircularProgressIndicator()
+                                  ),
+                                  SizedBox(height:30),
+                                  Center(
+                                    child: Text(
+                                      "Loading Please Wait...."
+                                    )
+                                  )
+                                ],
                               )
-                            ],
-                          )
-                          : Flexible(
-                              child: state is SearchLoaded
-                                  ? MovieSlider(searchmovie: state.searchloaded)
-                                  : Container(height: 200, width: 200)),
-                    )
+                              : state is SearchLoaded
+                                      ? MovieGrid(searchmovie: state.searchloaded)
+                                      : Container(height: 200, width: 200),
+                      ),
+                    ),
+                    SizedBox(height:25)
+                    
                   ],
                 ),
               ),
