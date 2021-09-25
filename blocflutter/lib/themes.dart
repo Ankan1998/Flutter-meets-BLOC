@@ -12,19 +12,28 @@ class MyTheme {
 
   static final TextStyle kAppTitle = TextStyle(
     color: Color(0xffC2F2EF),
-    fontFamily: GoogleFonts.revalia(fontSize: 28).fontFamily
+    fontSize: 22,
+    fontFamily: GoogleFonts.revalia().fontFamily
   );
   
-  
+
   static final TextStyle heading = TextStyle(
     color: Color(0xffD2C5ED),
-    fontFamily: GoogleFonts.righteous(fontSize: 28).fontFamily
+    fontSize: 18,
+    fontFamily: GoogleFonts.righteous().fontFamily
+  );
+
+    static final TextStyle main_heading = TextStyle(
+    color: Color(0xffD2C5ED),
+    fontSize: 24,
+    fontFamily: GoogleFonts.righteous().fontFamily
   );
 
 
   static final TextStyle paragraph = TextStyle(
     color: Color(0xffDBEDC5),
-    fontFamily: GoogleFonts.rosarivo(fontSize: 22).fontFamily
+    fontSize: 20,
+    fontFamily: GoogleFonts.rosarivo().fontFamily
   );
 
 
