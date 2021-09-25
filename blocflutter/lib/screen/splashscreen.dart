@@ -17,7 +17,7 @@ class _SplashScreenxState extends State<SplashScreenx> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 3),
+        Duration(seconds: 4),
         () => Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -33,7 +33,7 @@ class _SplashScreenxState extends State<SplashScreenx> {
           Center(
             child: ClipOval(
               child: Image.asset(
-                "images/git1.png",
+                "images/movie.png",
                 height: 200,
                 width: 200,
               ),
@@ -41,8 +41,12 @@ class _SplashScreenxState extends State<SplashScreenx> {
           ),
           SizedBox(height:50.0),
           Text(
-            'API',
-            style: MyTheme.kAppTitle
+            'MOVIEZ NERD',
+            style: TextStyle(
+              color: Color(0xffC2F2EF),
+              fontSize: 32,
+              fontFamily: GoogleFonts.revalia().fontFamily
+            )
           )
         ],
       )
