@@ -19,26 +19,28 @@ class _MovieGridState extends State<MovieGrid> {
   Moviemodel moviemodel;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        // width: MediaQuery.of(context).size.width * 0.9,
-        // height: MediaQuery.of(context).size.height * 0.95,
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            
-          ),
-          itemCount: widget.searchmovie.titles.length,
-          itemBuilder: (context, index) {
-            return Image.network(
-              widget.searchmovie.titles[index].image,  
-              // height: MediaQuery.of(context).size.height * 0.5,
-              // width:MediaQuery.of(context).size.width * 0.2, 
-              fit: BoxFit.fill
-            );
-          },
-        ),
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        
       ),
+      itemCount: widget.searchmovie.titles.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Card(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            elevation: 3,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20))
+            ),
+            child: Image.network(
+              widget.searchmovie.titles[index].image,   
+              fit: BoxFit.fill
+            ),
+          ),
+        );
+      },
     );
   }
 }
