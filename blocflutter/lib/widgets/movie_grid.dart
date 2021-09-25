@@ -21,22 +21,33 @@ class _MovieGridState extends State<MovieGrid> {
   Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        
+        crossAxisCount: 2,       
       ),
       itemCount: widget.searchmovie.titles.length,
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.all(6.0),
-          child: Card(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20))
-            ),
-            child: Image.network(
-              widget.searchmovie.titles[index].image,   
-              fit: BoxFit.fill
+          child: GestureDetector(
+            onTap: () async {
+              final mr = new MovieApiRepo(
+                  movie_id: widget.searchmovie.titles[index].id);
+              var m = await mr.getMovieData();
+              Moviemodel moviemodel = Moviemodel.fromJson(m);
+              print(moviemodel.plot);
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return MovieDetails(movie: moviemodel);
+              }));
+            },
+            child: Card(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15))
+              ),
+              child: Image.network(
+                widget.searchmovie.titles[index].image,   
+                fit: BoxFit.fill
+              ),
             ),
           ),
         );
