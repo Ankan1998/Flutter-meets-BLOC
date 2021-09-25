@@ -30,7 +30,7 @@ class _MovieGridState extends State<MovieGrid> {
           padding: const EdgeInsets.all(6.0),
           child: Card(
             clipBehavior: Clip.antiAliasWithSaveLayer,
-            elevation: 3,
+            elevation: 5,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20))
             ),
