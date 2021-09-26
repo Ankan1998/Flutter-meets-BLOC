@@ -1,5 +1,5 @@
-import 'package:blocflutter/bloc/search_events.dart';
-import 'package:blocflutter/bloc/search_state.dart';
+import 'package:blocflutter/bloc/searchbloc/search_events.dart';
+import 'package:blocflutter/bloc/searchbloc/search_state.dart';
 import 'package:blocflutter/model/search_movie_model.dart';
 import 'package:blocflutter/repo/search_movie_api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

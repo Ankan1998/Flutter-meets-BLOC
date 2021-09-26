@@ -16,7 +16,9 @@ class MovieLoading extends MovieState {
 }
 
 class MovieLoaded extends MovieState{
+  final movieloaded;
 
+  MovieLoaded(this.movieloaded);
 }
 
 class MovieError extends MovieState{
