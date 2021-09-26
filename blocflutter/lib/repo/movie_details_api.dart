@@ -3,10 +3,7 @@ import 'package:http/http.dart' as http;
 
 class MovieApiRepo {
 
-  MovieApiRepo({this.movie_id});
-  final String movie_id;
-
-  Future<dynamic> getMovieData() async {
+  Future<dynamic> getMovieData(String movie_id) async {
     Map<String, String> requestHeaders = {
       'x-rapidapi-host':
       'imdb-internet-movie-database-unofficial.p.rapidapi.com',
