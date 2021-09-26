@@ -69,6 +69,7 @@ class _MovieDetailsState extends State<MovieDetails> {
           separatorBuilder: (BuildContext context, int index) {
             return SizedBox(height: 15.0);
           },
+          physics: AlwaysScrollableScrollPhysics(),
           itemCount: cast.length,
           itemBuilder: (context, index) {
             return ClipPath(
@@ -113,6 +114,7 @@ class _MovieDetailsState extends State<MovieDetails> {
               body: Padding(
                 padding: const EdgeInsets.only(bottom: 12.0),
                 child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
