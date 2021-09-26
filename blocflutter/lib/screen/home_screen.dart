@@ -1,9 +1,8 @@
-import 'package:blocflutter/bloc/search_bloc.dart';
-import 'package:blocflutter/bloc/search_events.dart';
-import 'package:blocflutter/bloc/search_state.dart';
+import 'package:blocflutter/bloc/searchbloc/search_bloc.dart';
+import 'package:blocflutter/bloc/searchbloc/search_events.dart';
+import 'package:blocflutter/bloc/searchbloc/search_state.dart';
 import 'package:blocflutter/themes.dart';
 import 'package:blocflutter/widgets/movie_grid.dart';
-import 'package:blocflutter/widgets/movie_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
