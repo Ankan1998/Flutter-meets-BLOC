@@ -122,6 +122,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                       SizedBox(height: 10),
                       Text(
                         movie.title,
+                        textAlign: TextAlign.center,                       
                         style: MyTheme.main_heading,
                       ),
                       StackMovie(
