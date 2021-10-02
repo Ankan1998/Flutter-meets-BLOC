@@ -8,3 +8,5 @@ This repo uses free Movie api from rapid Api to built movie searching app. The B
 <img align="left" src="https://user-images.githubusercontent.com/36896102/134806239-186b4cf0-6ee2-406e-949f-bce5702ab1de.PNG" height="350" width="180"/>
 <img align="center" src="https://user-images.githubusercontent.com/36896102/134806248-c2d6d0a4-f88c-42f1-afad-69d27d263a86.PNG" height="350" width="180"/>
 
+### *APK for android*
+[DOWNLOAD_MOVIEZ_NERD_V1](https://drive.google.com/file/d/1lV_ZZeeRxeaifORNlCEH5s-nLG2d06_S/view?usp=sharing)
