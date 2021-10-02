@@ -1,6 +1,8 @@
+import 'package:blocflutter/bloc/moviebloc/movie_bloc.dart';
 import 'package:blocflutter/bloc/searchbloc/search_bloc.dart';
 import 'package:blocflutter/bloc/searchbloc/search_events.dart';
 import 'package:blocflutter/bloc/searchbloc/search_state.dart';
+import 'package:blocflutter/repo/movie_details_api.dart';
 import 'package:blocflutter/themes.dart';
 import 'package:blocflutter/widgets/movie_grid.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,8 +24,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SearchBloc(SearchApiRepo()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SearchBloc(SearchApiRepo())
+        ),
+        BlocProvider(
+          create: (context) => MovieBloc(MovieApiRepo())
+        )
+      ],
+      
       child: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
           return SafeArea(
